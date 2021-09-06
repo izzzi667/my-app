@@ -1,5 +1,5 @@
   let state={
-    profiePage: {
+    profilePage: {
         postsData: [
             {id:0, header:'Привет', text:'Текст поста 1-2-3', likeCounts:5},
             {id:1, header:'Привет 2', text:'Текст поста 1-2-3-4', likeCounts:3},
