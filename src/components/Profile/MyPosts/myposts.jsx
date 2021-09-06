@@ -6,15 +6,21 @@ import Post from './Post/Post';
 
 const MyPosts = (props) => {
         
-
+    debugger;
     let postArray = props.postsData.map(post => <Post header={post.header} text={post.text} likeCounts = {post.likeCounts}/>);
 
     let newPostElement=React.createRef();       //Создаем ссылку на элемент
 
     let addPost = () =>
+    {        
+        props.addPost();
+        props.changeNewPostText('');
+    }
+
+    let onPostChange =() =>
     {
-        let text = newPostElement.current.value; //newPostElement.current - ссылается на свойства реального dom элемента
-        alert(text);
+        let text =newPostElement.current.value;
+        props.changeNewPostText(text);
     }
 
     return (
@@ -23,7 +29,7 @@ const MyPosts = (props) => {
                 <div>
                     <h3>New post</h3>
                     <div>
-                        <textarea ref={newPostElement}></textarea>
+                        <textarea onChange={onPostChange} ref={newPostElement} value={props.newPostText}/>
                     </div>
                     <div>
                         <button onClick={ addPost }>Add post</button>
