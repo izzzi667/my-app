@@ -1,11 +1,27 @@
 import reportWebVitals from './reportWebVitals';
-import {reRenderTree} from './render';
-import state from './redux/state';
+import store from './redux/state';
+import React from 'react';
+import ReactDOM from 'react-dom';
+import './index.css';
+import App from './App';
 
 
 
+let reRenderTree = (state) =>{
+    ReactDOM.render(
+      <React.StrictMode>
+        <App state ={store.getState()} addPost={store.addPost.bind(store)} changeNewPostText={store.changeNewPostText.bind(store)}/>
+      </React.StrictMode>,
+      document.getElementById('root')
+    );
+  }
 
-reRenderTree(state);
+  //Метод Bind позволяет привязать контекст к функции и полноценно использовать this внутри store после вызова коллбэка
+
+
+store.subscribe(reRenderTree);
+reRenderTree(store.getState());
+
 
 
 // If you want to start measuring performance in your app, pass a function
