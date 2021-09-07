@@ -29,29 +29,35 @@ let store = {
     {
         console.log('State changed');
     },
-    addPost() 
-    {
-        let newPost = 
-        {
-            id:5,
-            header: 'Newpost',
-            text: this._state.profilePage.newPostText,
-            likeCounts: 0
-        };
-        this._state.profilePage.postsData.push(newPost);   
-        this._state.profilePage.newPostText= '';
-        this._callSubscriber(this._state);
-    },
     changeNewPostText (postMessage) 
     {
-        this._state.profilePage.newPostText= postMessage;
-        this._callSubscriber(this._state);
+
     },
     subscribe(observer) 
     {
         this._callSubscriber=observer; //Паттерн наблюдатель
+    },
+    dispatch(action)    //{type: 'ADD-POST'}
+    {
+        if(action.type === 'ADD-POST')
+        {
+            let newPost = 
+            {
+                id:5,
+                header: 'Newpost',
+                text: this._state.profilePage.newPostText,
+                likeCounts: 0
+            };
+            this._state.profilePage.postsData.push(newPost);   
+            this._state.profilePage.newPostText= '';
+            this._callSubscriber(this._state);
+        }
+        else if(action.type === 'UPDATE-NEW-POST-TEXT')
+        {
+            this._state.profilePage.newPostText= action.postMessage;
+            this._callSubscriber(this._state);
+        }
     }
-
 
 }
 

@@ -10,7 +10,7 @@ import App from './App';
 let reRenderTree = (state) =>{
     ReactDOM.render(
       <React.StrictMode>
-        <App state ={store.getState()} addPost={store.addPost.bind(store)} changeNewPostText={store.changeNewPostText.bind(store)}/>
+        <App state ={store.getState()} dispatch={store.dispatch.bind(store)}/>
       </React.StrictMode>,
       document.getElementById('root')
     );
