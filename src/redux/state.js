@@ -1,10 +1,6 @@
 import dialogsReducer from "./dialogsReducer";
 import profileReducer from "./profileReducer";
 
-const ADD_POST ='ADD-POST'; //Acrtion type - для уменьшения ошибк в написании Action Creator, просто не даст скомпилироваться при ошибке
-const UPDATE_NEW_POST_TEXT ='UPDATE-NEW-POST-TEXT';
-const ADD_MESSAGE ='ADD-MESSAGE';
-const UPDATE_NEW_MESSAGE_TEXT ='UPDATE-NEW-MESSAGE-TEXT';
 
 let store = {
     _state:{
@@ -51,12 +47,8 @@ let store = {
 }
 
  
-export const addPostActionCreator = () => ({type: ADD_POST});
-export const onPostChangeActionCreator = (text) => 
-        ({type: UPDATE_NEW_POST_TEXT,postMessage: text });
-export const AddMessageActionCreator = ()=>
-        ({type: ADD_MESSAGE });
-export const onMessageChangeActionCreator  = (text)=>({type: UPDATE_NEW_MESSAGE_TEXT,message: text });
+
+
 
 
 export default store;

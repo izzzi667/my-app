@@ -14,7 +14,7 @@ const profileReducer = (state, action) =>{
             state.postsData.push(newPost);   
             state.newPostText= '';
             break;
-            
+
         case UPDATE_NEW_POST_TEXT:
             state.newPostText= action.postMessage;
             break;
@@ -24,5 +24,8 @@ const profileReducer = (state, action) =>{
     }
     return state;
 }
+
+export const addPostActionCreator = () => ({type: ADD_POST});
+export const onPostChangeActionCreator = (text) => ({type: UPDATE_NEW_POST_TEXT,postMessage: text });
 
 export default profileReducer;
