@@ -79,33 +79,12 @@ let store = {
 }
 
  
-export const addPostActionCreator = () => //Action Creator - вспомогательная функция, помогает не ошибиться в создании функции для dispatch
-{
-    return {
-        type: ADD_POST
-    }
-}
-
-export  const onPostChangeActionCreator = (text) =>{
-    return {
-        type: UPDATE_NEW_POST_TEXT,
-        postMessage: text
-    }
-}
-
+export const addPostActionCreator = () => ({type: ADD_POST});
+export const onPostChangeActionCreator = (text) => 
+        ({type: UPDATE_NEW_POST_TEXT,postMessage: text });
 export const AddMessageActionCreator = ()=>
-{
-    return {
-        type: ADD_MESSAGE
-    }
-}
-
-export const onMessageChangeActionCreator  = (text)=>{    
-    return{
-        type: UPDATE_NEW_MESSAGE_TEXT,
-        message: text
-    }
-}
+        ({type: ADD_MESSAGE });
+export const onMessageChangeActionCreator  = (text)=>({type: UPDATE_NEW_MESSAGE_TEXT,message: text });
 
 
 export default store;
