@@ -6,19 +6,21 @@ import { AddMessageActionCreator, onMessageChangeActionCreator } from '../../red
 
 
 const Dialogs = (props) => {
+
     debugger;
-    let dialogsContent = props.messagesPage.dialogsData.map(dialog => <Dialog id={dialog.id} name={dialog.name} />)
-    let messagesContent = props.messagesPage.messagesData.map(message => <Message text={message.message} />);  
+
+    let dialogsContent = props.dialogData.map(dialog => <Dialog id={dialog.id} name={dialog.name} />)
+    let messagesContent = props.messageData.map(message => <Message text={message.message} />);  
     
     let addMessage =() =>
     {        
-        props.dispatch(AddMessageActionCreator());
+        props.addMessage();
     }
 
     let modifyNewMessage = (event) =>
     {        
         let text = event.target.value;                                      //Вариант использования без ref
-        props.dispatch(onMessageChangeActionCreator(text));
+        props.modifyNewMessage(text);
     }
 
     return (
@@ -30,7 +32,7 @@ const Dialogs = (props) => {
                 {messagesContent}               
                 <hr />
                 <div>
-                    <div><textarea onChange={modifyNewMessage} value={props.messagesPage.newMessageText}></textarea></div>
+                    <div><textarea onChange={modifyNewMessage} value={props.newMessageText}></textarea></div>
                     <div><button onClick={addMessage}>Send</button></div>
                 </div>
            </div>

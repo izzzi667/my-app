@@ -9,10 +9,9 @@ import App from './App';
 
 
 let reRenderTree = (state) =>{
-
     ReactDOM.render(
       <React.StrictMode>
-        <App state ={store.getState()} dispatch={store.dispatch.bind(store)}/>
+        <App store ={store}/>
       </React.StrictMode>,
       document.getElementById('root')
     );
@@ -24,7 +23,7 @@ let reRenderTree = (state) =>{
 reRenderTree(store.getState());
 store.subscribe(()=>
 {
-  let state=store.getState();
+  let state=store.getState();   //Необходимо, т.к. Redux при подписке не возвращает state, в итоге подписываемся на анонимную функцию
   reRenderTree(state);
 });
 

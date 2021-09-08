@@ -6,22 +6,20 @@ import Post from './Post/Post';
 
 
 
-const MyPosts = (props) => {
-        
-    let postArray = props.postsData.map(post => <Post header={post.header} text={post.text} likeCounts = {post.likeCounts}/>);
+const MyPosts = (props) => {        
+    let postArray = props.posts.map(post => <Post header={post.header} text={post.text} likeCounts = {post.likeCounts}/>);
 
     let newPostElement=React.createRef();       //Создаем ссылку на элемент
 
     let addPost = () =>
     {        
-        props.dispatch(addPostActionCreator());
-        props.dispatch(onPostChangeActionCreator(''));
+        props.createNewPost();
     }
 
     let onPostChange =() =>
     {
         let text =newPostElement.current.value;
-        props.dispatch(onPostChangeActionCreator(text));
+        props.updateNewPost(text);
     }
 
     return (
