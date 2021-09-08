@@ -1,3 +1,6 @@
+import dialogsReducer from "./dialogsReducer";
+import profileReducer from "./profileReducer";
+
 const ADD_POST ='ADD-POST'; //Acrtion type - для уменьшения ошибк в написании Action Creator, просто не даст скомпилироваться при ошибке
 const UPDATE_NEW_POST_TEXT ='UPDATE-NEW-POST-TEXT';
 const ADD_MESSAGE ='ADD-MESSAGE';
@@ -41,40 +44,9 @@ let store = {
     },
     dispatch(action)    //{type: 'ADD-POST'} action - это объект
     {
-        if(action.type === ADD_POST)
-        {
-            let newPost = 
-            {
-                id:5,
-                header: 'Newpost',
-                text: this._state.profilePage.newPostText,
-                likeCounts: 0
-            };
-            this._state.profilePage.postsData.push(newPost);   
-            this._state.profilePage.newPostText= '';
-            this._callSubscriber(this._state);
-        }
-        else if(action.type === UPDATE_NEW_POST_TEXT)
-        {
-            this._state.profilePage.newPostText= action.postMessage;
-            this._callSubscriber(this._state);
-        }
-        else if (action.type=== ADD_MESSAGE)
-        {
-            let newMessage=
-            {
-                id:4,
-                message: this._state.messagesPage.newMessageText
-            }
-            this._state.messagesPage.messagesData.push(newMessage);
-            this._state.messagesPage.newMessageText='';
-            this._callSubscriber(this._state);
-        }
-        else if (action.type=UPDATE_NEW_MESSAGE_TEXT)
-        {
-            this._state.messagesPage.newMessageText=action.message;
-            this._callSubscriber(this._state);
-        }
+        this._state.profilePage=profileReducer(this._state.profilePage, action); //reducer - упрощает обработку action
+        this._state.messagesPage= dialogsReducer(this._state.messagesPage, action);
+        this._callSubscriber(this._state);
     }
 }
 
