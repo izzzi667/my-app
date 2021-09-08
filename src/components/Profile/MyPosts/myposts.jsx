@@ -8,7 +8,6 @@ import Post from './Post/Post';
 
 const MyPosts = (props) => {
         
-    debugger;
     let postArray = props.postsData.map(post => <Post header={post.header} text={post.text} likeCounts = {post.likeCounts}/>);
 
     let newPostElement=React.createRef();       //Создаем ссылку на элемент

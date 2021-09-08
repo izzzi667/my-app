@@ -6,7 +6,7 @@ import { AddMessageActionCreator, onMessageChangeActionCreator } from '../../red
 
 
 const Dialogs = (props) => {
-
+    debugger;
     let dialogsContent = props.messagesPage.dialogsData.map(dialog => <Dialog id={dialog.id} name={dialog.name} />)
     let messagesContent = props.messagesPage.messagesData.map(message => <Message text={message.message} />);  
     

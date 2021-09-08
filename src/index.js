@@ -1,5 +1,6 @@
 import reportWebVitals from './reportWebVitals';
-import store from './redux/state';
+//import store from './redux/state';
+import store from './redux/reduxStore';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
@@ -8,6 +9,7 @@ import App from './App';
 
 
 let reRenderTree = (state) =>{
+
     ReactDOM.render(
       <React.StrictMode>
         <App state ={store.getState()} dispatch={store.dispatch.bind(store)}/>
@@ -19,8 +21,13 @@ let reRenderTree = (state) =>{
   //Метод Bind позволяет привязать контекст к функции и полноценно использовать this внутри store после вызова коллбэка
 
 
-store.subscribe(reRenderTree);
 reRenderTree(store.getState());
+store.subscribe(()=>
+{
+  let state=store.getState();
+  reRenderTree(state);
+});
+
 
 
 

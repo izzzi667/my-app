@@ -1,7 +1,18 @@
 const ADD_POST ='ADD-POST'; //Acrtion type - для уменьшения ошибк в написании Action Creator, просто не даст скомпилироваться при ошибке
 const UPDATE_NEW_POST_TEXT ='UPDATE-NEW-POST-TEXT';
 
-const profileReducer = (state, action) =>{
+let initialState={
+    postsData: [
+        {id:0, header:'Привет', text:'Текст поста 1-2-3', likeCounts:5},
+        {id:1, header:'Привет 2', text:'Текст поста 1-2-3-4', likeCounts:3},
+        {id:2, header:'Привет 3', text:'ААА Текст поста 1-2-3-4', likeCounts:3}
+    ]
+    ,newPostText: ''
+};
+
+
+
+const profileReducer = (state = initialState, action) =>{
     switch (action.type) {
         case ADD_POST:
             let newPost = 
