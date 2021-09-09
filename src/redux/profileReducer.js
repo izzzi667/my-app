@@ -14,23 +14,29 @@ let initialState={
 
 const profileReducer = (state = initialState, action) =>{
     switch (action.type) {
-        case ADD_POST:
-            debugger;
-            let newPost = 
-            {
-                id:5,
-                header: 'Newpost',
-                text: state.newPostText,
-                likeCounts: 0
-            };
-            state.postsData.push(newPost);   
-            state.newPostText= '';
-            break;
-
+        case ADD_POST: {           
+                //Необходимо - react redux проверяет при перисовке, что меняется ссылка на объект, а не конектс
+                let newPost = 
+                {
+                    id:5,
+                    header: 'Newpost',
+                    text: state.newPostText,
+                    likeCounts: 0
+                };
+                let stateCopy ={...state};
+                stateCopy.postsData=[...state.postsData];
+                stateCopy.postsData.push(newPost);   
+                stateCopy.newPostText= '';
+                return stateCopy;
+                break;
+            }
         case UPDATE_NEW_POST_TEXT:
-            state.newPostText= action.postMessage;
-            break;
-    
+            {
+                let stateCopy = {...state};
+                stateCopy.newPostText= action.postMessage;
+                return stateCopy;
+                break;
+            }
         default:
             break;
     }

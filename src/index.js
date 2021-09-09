@@ -10,7 +10,7 @@ import {Provider} from 'react-redux';
 
   
 
-
+/*
 let reRenderTree = (state) =>{
     ReactDOM.render(           
       <React.StrictMode>
@@ -32,6 +32,17 @@ store.subscribe(()=>
   let state=store.getState();   //Необходимо, т.к. Redux при подписке не возвращает state, в итоге подписываемся на анонимную функцию
   reRenderTree(state);
 });
+*/
+//С использованием react-redux ручная перерисовка дерева не нужна - компонент перерисовывает дерево сам
+ReactDOM.render(           
+  <React.StrictMode>
+    <Provider store={store}>
+      <App />
+    </Provider>
+  </React.StrictMode>
+  ,
+  document.getElementById('root')
+);
 
 
 
