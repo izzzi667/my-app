@@ -7,7 +7,7 @@ let initialState={
         {id:1, header:'Привет 2', text:'Текст поста 1-2-3-4', likeCounts:3},
         {id:2, header:'Привет 3', text:'ААА Текст поста 1-2-3-4', likeCounts:3}
     ]
-    ,newPostText: ''
+    ,newPostText: 'dasd'
 };
 
 
@@ -15,6 +15,7 @@ let initialState={
 const profileReducer = (state = initialState, action) =>{
     switch (action.type) {
         case ADD_POST:
+            debugger;
             let newPost = 
             {
                 id:5,
