@@ -7,8 +7,10 @@ import Navbar from './components/Navbar/navbar';
 import Profile from './components/Profile/profile.jsx';
 import News from './components/News/News.jsx'
 import Settings from './components/Settings/Settings';
+import Users from './Users/Users';
 
 
+//Babel - транспилятор - транспилирует jsx в js
 
 const App = (props) => {    
   return (        
@@ -18,8 +20,9 @@ const App = (props) => {
       <Navbar />
       <div className='app-wrapper-content'>
         <Route path = '/profile' render = {()=> <Profile /> } />
-        <Route path ='/dialogs' render = {()=> <DialogsContainer /> } />
-        <Route path ='/news' component={News} />
+        <Route path ='/dialogs' render = {()=> <DialogsContainer /> } />        
+        <Route path ='/users' render  ={()=> <Users /> } />
+        <Route path ='/news' component={News} />        
         <Route exact path ='/settings' component={Settings} />        
       </div>        
       <Footer />
