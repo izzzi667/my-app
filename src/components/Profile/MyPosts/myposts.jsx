@@ -7,7 +7,7 @@ import Post from './Post/Post';
 
 
 const MyPosts = (props) => {        
-    let postArray = props.posts.map(post => <Post header={post.header} text={post.text} likeCounts = {post.likeCounts}/>);
+    let postArray = props.posts.map(post => <Post header={post.header} text={post.text} likeCounts = {post.likeCounts} key={post.id}/>);
 
     let newPostElement=React.createRef();       //Создаем ссылку на элемент
 
