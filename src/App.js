@@ -7,7 +7,7 @@ import Navbar from './components/Navbar/navbar';
 import Profile from './components/Profile/profile.jsx';
 import News from './components/News/News.jsx'
 import Settings from './components/Settings/Settings';
-import Users from './Users/Users';
+import UsersContainer from './components/Users/UsersContainer';
 
 
 //Babel - транспилятор - транспилирует jsx в js
@@ -21,7 +21,7 @@ const App = (props) => {
       <div className='app-wrapper-content'>
         <Route path = '/profile' render = {()=> <Profile /> } />
         <Route path ='/dialogs' render = {()=> <DialogsContainer /> } />        
-        <Route path ='/users' render  ={()=> <Users /> } />
+        <Route path ='/users' render  ={()=> <UsersContainer /> } />
         <Route path ='/news' component={News} />        
         <Route exact path ='/settings' component={Settings} />        
       </div>        
