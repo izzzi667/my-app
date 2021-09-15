@@ -7,18 +7,22 @@ import userPhoto from '../../assets/images/default_avatar.jpg'
 //Классовая компонента - устарелка - не рекомендуется использовать
 class Users extends React.Component {
     
+
+    constructor(props){
+        super(props);                   //Если только эта операция - конструктор можно опустить
+        this.getUsers();
+
+    }
+
     getUsers =() =>{
-        if (this.props.users.length===0){
-            axios.get("https://social-network.samuraijs.com/api/1.0/users").then(response =>{
-                this.props.setUsers(response.data.items);
-            });
-        }
+        axios.get("https://social-network.samuraijs.com/api/1.0/users").then(response =>{
+            this.props.setUsers(response.data.items);
+        });        
     }
     
     render()                                    //React будет вызывать этот метод при отрисовке, возвращать должен jsx
     {
         return <div>
-            <button onClick={this.getUsers}>Get users</button>
             {
             this.props.users.map(u=> <div key={u.id}>
                         <span>
