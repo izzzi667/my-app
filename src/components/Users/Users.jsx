@@ -10,7 +10,6 @@ class Users extends React.Component {
 
     constructor(props){
         super(props);                   //Если только эта операция - конструктор можно опустить
-        this.getUsers();
 
     }
 
@@ -19,6 +18,10 @@ class Users extends React.Component {
             this.props.setUsers(response.data.items);
         });        
     }
+
+    componentDidMount(){
+        this.getUsers();                //Вызывается при создании компоненты
+    };
     
     render()                                    //React будет вызывать этот метод при отрисовке, возвращать должен jsx
     {
