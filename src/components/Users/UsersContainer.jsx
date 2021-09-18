@@ -1,8 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { followAC, setUsersAC, unfollowAC, setCurrentPageAC, setTotalUsersCountAC } from '../../redux/usersReducer';
+import { followAC, setUsersAC, unfollowAC, setCurrentPageAC, setTotalUsersCountAC, toggleIsFetchingAC } from '../../redux/usersReducer';
 import * as axios from 'axios';
 import Users from './Users';
+import Preloader from '../Common/Preloader';
 
 
 //Классовая компонента - устарелка - не рекомендуется использовать
@@ -15,7 +16,9 @@ class UsersContainerComponent extends React.Component {
     }
 
     getUsers =() =>{
+        this.props.toggleIsFetching(true);
         axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`).then(response =>{
+            this.props.toggleIsFetching(false);
             this.props.setUsers(response.data.items);
             this.props.setTotalUsersCount(response.data.totalCount);
         });        
@@ -27,8 +30,10 @@ class UsersContainerComponent extends React.Component {
     
 
     onPageChanged = (pageNumber) =>{
+        this.props.toggleIsFetching(true);
         this.props.setCurrentPage(pageNumber);
         axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`).then(response =>{
+            this.props.toggleIsFetching(false);
             this.props.setUsers(response.data.items);
             this.props.setTotalUsersCount(response.data.totalCount);
         });        
@@ -37,8 +42,10 @@ class UsersContainerComponent extends React.Component {
 
     render()                                    //React будет вызывать этот метод при отрисовке, возвращать должен jsx
     {
-
-        return <Users totalUsersCount={this.props.totalUsersCount} 
+        
+        return <div>
+        {this.props.isFethcing ? <Preloader />: null} 
+        <Users totalUsersCount={this.props.totalUsersCount} 
             pageSize={this.props.pageSize}
             currentPage={this.props.currentPage}
             users={this.props.users}
@@ -46,6 +53,7 @@ class UsersContainerComponent extends React.Component {
             follow = {this.props.follow}
             unfollow = {this.props.unfollow}
         />
+        </div>
 
     }
 }
@@ -57,7 +65,8 @@ let mapStateToProps= (state) =>
         users: state.users.users,
         pageSize: state.users.pageSize,
         totalUsersCount: state.users.totalUsersCount,
-        currentPage: state.users.currentPage
+        currentPage: state.users.currentPage,
+        isFethcing: state.users.isFethcing
     }
 }
 
@@ -78,6 +87,9 @@ let mapDispathcToProps = (dispatch) =>
         },
         setTotalUsersCount: (totalCount) =>{
             dispatch(setTotalUsersCountAC(totalCount))
+        },
+        toggleIsFetching: (isFethcing) =>{
+            dispatch(toggleIsFetchingAC(isFethcing))
         }
 }
 };
