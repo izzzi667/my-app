@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { followAC, setUsersAC, unfollowAC, setCurrentPageAC, setTotalUsersCountAC, toggleIsFetchingAC } from '../../redux/usersReducer';
+import { follow, setUsers, unfollow, setCurrentPage, setTotalUsersCount, toggleIsFetching } from '../../redux/usersReducer';
 import * as axios from 'axios';
 import Users from './Users';
 import Preloader from '../Common/Preloader';
@@ -69,7 +69,7 @@ let mapStateToProps= (state) =>
         isFethcing: state.users.isFethcing
     }
 }
-
+/*
 let mapDispathcToProps = (dispatch) => 
 {
     return{
@@ -96,8 +96,15 @@ let mapDispathcToProps = (dispatch) =>
 
 
 
+
+
+
 const UsersContainer= connect(mapStateToProps,mapDispathcToProps)(UsersContainerComponent);
 
 
 
 export default UsersContainer;
+*/
+
+//Сокращенная записить mapDispathToProps
+export default connect(mapStateToProps, {follow, unfollow, setUsers,setCurrentPage, setTotalUsersCount, toggleIsFetching})(UsersContainerComponent);
