@@ -1,5 +1,6 @@
 const ADD_POST ='ADD-POST'; //Acrtion type - для уменьшения ошибк в написании Action Creator, просто не даст скомпилироваться при ошибке
 const UPDATE_NEW_POST_TEXT ='UPDATE-NEW-POST-TEXT';
+const SET_USER_PROFILE='SET_USER_PROFILE';
 
 let initialState={
     postsData: [
@@ -8,6 +9,7 @@ let initialState={
         {id:2, header:'Привет 3', text:'ААА Текст поста 1-2-3-4', likeCounts:3}
     ]
     ,newPostText: ''
+    ,profile: null
 };
 
 
@@ -24,6 +26,8 @@ const profileReducer = (state = initialState, action) =>{
             }
         case UPDATE_NEW_POST_TEXT:
             return {...state, newPostText: action.postMessage}
+        case SET_USER_PROFILE:
+            return {...state, profile: action.profile}
         default:
             break;
     }
@@ -32,5 +36,6 @@ const profileReducer = (state = initialState, action) =>{
 
 export const addPostActionCreator = () => ({type: ADD_POST});
 export const onPostChangeActionCreator = (text) => ({type: UPDATE_NEW_POST_TEXT,postMessage: text });
+export const setUserProfile = (profile)=>({type:SET_USER_PROFILE, profile});
 
 export default profileReducer;
