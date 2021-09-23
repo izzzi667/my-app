@@ -2,13 +2,11 @@ import style from './Users.module.css';
 import userPhoto from '../../assets/images/default_avatar.jpg'
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import axios from 'axios';
 import { follow, unFollow } from '../../api/api';
 
 
 
-const Users = (props) =>{
-
+const Users = (props) =>{    
     let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize);
     let pages =[];
     for (let i=1;i<=pagesCount; i++){
@@ -27,24 +25,26 @@ const Users = (props) =>{
                         <div><NavLink to={'/profile/'+u.id}><img src={u.photos.small !=null ? u.photos.small: userPhoto}/></NavLink></div>
                         <div>{
                             u.followed?
-                            <button onClick={()=>{
-                                
-                                follow(u.id).then(
+                            <button disabled ={props.followingInProgress.some(id => id===u.id)} onClick={()=>{                                
+                                props.toggleFollowingInProgress(true, u.id);
+                                follow(u.id).then(                                    
                                     response =>{
                                         if(response.data.resultCode==0){
                                             props.unfollow(u.id)
                                         }
-                                    }
+                                        props.toggleFollowingInProgress(false, u.id);
+                                    }                                    
                                 );
 
                             
                             }}>Unfollow</button>:
-                            <button onClick={()=>{
-                                
+                            <button disabled ={props.followingInProgress.some(id => id===u.id)} onClick={()=>{
+                                props.toggleFollowingInProgress(true, u.id);
                                 unFollow(u.id).then(
                                     response =>{
                                         if(response.data.resultCode==0){
-                                            props.follow(u.id)
+                                            props.follow(u.id);
+                                            props.toggleFollowingInProgress(false, u.id);
                                         }
                                     }
                                 );
