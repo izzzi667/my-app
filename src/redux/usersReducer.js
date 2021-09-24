@@ -1,4 +1,5 @@
 import { act } from "react-dom/test-utils";
+import getUsers from '../api/api'
 
 const FOLLOW ='FOLLOW'; 
 const UNFOLLOW ='UNFOLLOW';
@@ -71,4 +72,17 @@ export const setTotalUsersCount = (totalUsersCount) =>({type:SET_TOTAL_USERS_COU
 export const toggleIsFetching = (isFethcing)=>({type:TOGGLE_IS_FETCHING, isFethcing});
 export const toggleFollowingInProgress = (isFethcing, userId) =>({type:TOGGLE_IS_FOLLOWING_PROGRESS, isFethcing, userId})
 
+
+
+export const getUsersThunkCreator =(currentPage, pageSize) =>{  
+    return (dispatch) =>
+    {
+        dispatch(toggleIsFetching(true));
+        getUsers(currentPage, pageSize).then(data =>{
+            dispatch(toggleIsFetching(false));
+            dispatch(setUsers(data.items));
+            dispatch(setTotalUsersCount(data.totalCount));
+        });   
+    }
+}
 export default usersReducer;

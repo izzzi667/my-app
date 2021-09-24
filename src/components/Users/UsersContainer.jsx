@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { follow, setUsers, unfollow, setCurrentPage, setTotalUsersCount, toggleIsFetching, toggleFollowingInProgress } from '../../redux/usersReducer';
+import { follow, setUsers, unfollow, setCurrentPage, setTotalUsersCount, toggleIsFetching, toggleFollowingInProgress, getUsersThunkCreator } from '../../redux/usersReducer';
 import Users from './Users';
 import Preloader from '../Common/Preloader';
 import getUsers from '../../api/api'
@@ -18,12 +18,14 @@ class UsersContainerComponent extends React.Component {
 
     componentDidMount(){
         //Вызывается при создании компоненты
-        this.props.toggleIsFetching(true);
+        this.props.getUsers(this.props.currentPage, this.props.pageSize);
+        //Перенесено в thunk
+        /*this.props.toggleIsFetching(true);
         getUsers(this.props.currentPage, this.props.pageSize).then(data =>{
             this.props.toggleIsFetching(false);
             this.props.setUsers(data.items);
             this.props.setTotalUsersCount(data.totalCount);
-        });   
+        });*/   
     };
     
 
@@ -108,4 +110,8 @@ export default UsersContainer;
 */
 
 //Сокращенная записить mapDispathToProps
-export default connect(mapStateToProps, {follow, unfollow, setUsers,setCurrentPage, setTotalUsersCount, toggleIsFetching, toggleFollowingInProgress})(UsersContainerComponent);
+export default connect(
+    mapStateToProps, 
+    {follow, unfollow, setUsers,setCurrentPage, 
+        setTotalUsersCount, toggleIsFetching, toggleFollowingInProgress, 
+        getUsers: getUsersThunkCreator})(UsersContainerComponent);
