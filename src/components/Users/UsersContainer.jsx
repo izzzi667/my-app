@@ -1,9 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { follow, setUsers, unfollow, setCurrentPage, setTotalUsersCount, toggleIsFetching, toggleFollowingInProgress, getUsersThunkCreator } from '../../redux/usersReducer';
+import { follow,  unFollow, setCurrentPage,  toggleFollowingInProgress, getUsers } from '../../redux/usersReducer';
 import Users from './Users';
 import Preloader from '../Common/Preloader';
-import getUsers from '../../api/api'
 
 
 //Классовая компонента - устарелка - не рекомендуется использовать
@@ -30,14 +29,7 @@ class UsersContainerComponent extends React.Component {
     
 
     onPageChanged = (pageNumber) =>{
-        this.props.toggleIsFetching(true);
-        this.props.setCurrentPage(pageNumber);
-        getUsers(pageNumber, this.props.pageSize).then(data =>{
-            this.props.toggleIsFetching(false);
-            this.props.setUsers(data.items);
-            this.props.setTotalUsersCount(data.totalCount);
-        });        
-
+        this.props.getUsers(pageNumber, this.props.pageSize);   
     }
 
     render()                                    //React будет вызывать этот метод при отрисовке, возвращать должен jsx
@@ -112,6 +104,6 @@ export default UsersContainer;
 //Сокращенная записить mapDispathToProps
 export default connect(
     mapStateToProps, 
-    {follow, unfollow, setUsers,setCurrentPage, 
-        setTotalUsersCount, toggleIsFetching, toggleFollowingInProgress, 
-        getUsers: getUsersThunkCreator})(UsersContainerComponent);
+    {follow, unFollow, setCurrentPage, 
+        toggleFollowingInProgress, 
+        getUsers})(UsersContainerComponent);

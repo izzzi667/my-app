@@ -9,23 +9,24 @@ const instancse = axios.create({
 });
 
 
-export const getUsers =(currentPage =1, pageSize=10) =>
-{
-    return instancse.get(`users?page=${currentPage}&count=${pageSize}`)
-    .then(response => {
-        return response.data            //Промис, возвращает только данные
-    })          
+
+export const usersApi ={
+    getUsersAPI (currentPage =1, pageSize=10) 
+    {
+        return instancse.get(`users?page=${currentPage}&count=${pageSize}`)
+        .then(response => {
+            return response.data            //Промис, возвращает только данные
+        })          
+    },
+    
+    follow (userId) 
+    {
+        return instancse.post('follow/'+userId);
+    },
+
+    unFollow (userId) {
+        return instancse.delete('follow/'+userId);
+    }
 }
 
-
-export const follow = (userId) =>
-{
-    return instancse.post('follow/'+userId);
-}
-
-export const unFollow = (userId) =>{
-    return instancse.delete('follow/'+userId);
-}
-
-
-export default getUsers;
+export default usersApi;
