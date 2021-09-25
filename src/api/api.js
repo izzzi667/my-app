@@ -29,4 +29,13 @@ export const usersApi ={
     }
 }
 
+
+export const profileApi ={
+    getProfile (userId = 2)
+    {
+        return instancse.get(`profile/`+userId); 
+    }
+}
+
+
 export default usersApi;
