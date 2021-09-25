@@ -37,5 +37,12 @@ export const profileApi ={
     }
 }
 
+export const authApi = {
+    getAuth ()
+    {
+        return instancse.get('auth/me');
+    }
+}
+
 
 export default usersApi;
