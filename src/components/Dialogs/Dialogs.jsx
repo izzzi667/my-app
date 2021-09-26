@@ -2,11 +2,12 @@ import React from 'react';
 import Dialog from './Dialog/Dialog';
 import Message from './Message/Message.jsx';
 import style from  './Dialogs.module.css';
-import { AddMessageActionCreator, onMessageChangeActionCreator } from '../../redux/dialogsReducer';
+import { Redirect } from 'react-router';
 
 
 const Dialogs = (props) => {
 
+    if(props.isAuth == false) return <Redirect to={'/Login'} />
     let dialogsContent = props.dialogData.map(dialog => <Dialog id={dialog.id} name={dialog.name} key={dialog.id} />)
     let messagesContent = props.messageData.map(message => <Message text={message.message} key={message.id}/>);  
     
