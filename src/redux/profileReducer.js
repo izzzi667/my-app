@@ -14,7 +14,7 @@ let initialState={
     ,profile: null
 };
 
-//Test commit integration 5
+//Test commit integration 7
 
 const profileReducer = (state = initialState, action) =>{
     switch (action.type) {
