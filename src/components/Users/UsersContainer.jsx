@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { follow,  unFollow, setCurrentPage,  toggleFollowingInProgress, getUsers } from '../../redux/usersReducer';
 import Users from './Users';
 import Preloader from '../Common/Preloader';
+import { withAuthRedirect } from '../../hoc/withAuthRedirect';
 
 
 //Классовая компонента - устарелка - не рекомендуется использовать
@@ -101,9 +102,11 @@ const UsersContainer= connect(mapStateToProps,mapDispathcToProps)(UsersContainer
 export default UsersContainer;
 */
 
-//Сокращенная записить mapDispathToProps
-export default connect(
+
+
+//Сокращенная записить mapDispathToProps и HOC
+export default withAuthRedirect(connect(
     mapStateToProps, 
     {follow, unFollow, setCurrentPage, 
         toggleFollowingInProgress, 
-        getUsers})(UsersContainerComponent);
+        getUsers})(UsersContainerComponent));
