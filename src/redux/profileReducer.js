@@ -44,9 +44,7 @@ export const setUserProfileIOnSuccess = (profile)=>({type:SET_USER_PROFILE, prof
 export const setUserProfile =(userId) =>{
     return(dispatch) =>
     {
-        debugger;
-        profileApi.getProfile(userId).then(response =>{
-            debugger;
+            profileApi.getProfile(userId).then(response =>{
             dispatch(setUserProfileIOnSuccess(response.data));
         }); 
     }    
