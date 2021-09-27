@@ -110,3 +110,11 @@ export default withAuthRedirect(connect(
     {follow, unFollow, setCurrentPage, 
         toggleFollowingInProgress, 
         getUsers})(UsersContainerComponent));
+
+/*
+export default connect(
+    
+    connect(mapStateToProps, {follow, unFollow, setCurrentPage, toggleFollowingInProgress, getUsers})
+    
+)(UsersContainerComponent);
+*/
