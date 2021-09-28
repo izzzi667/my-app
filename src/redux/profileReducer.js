@@ -3,6 +3,7 @@ import {profileApi} from '../api/api'
 const ADD_POST ='ADD-POST'; //Acrtion type - для уменьшения ошибк в написании Action Creator, просто не даст скомпилироваться при ошибке
 const UPDATE_NEW_POST_TEXT ='UPDATE-NEW-POST-TEXT';
 const SET_USER_PROFILE='SET_USER_PROFILE';
+const SET_STATUS='SET_STATUS';
 
 let initialState={
     postsData: [
@@ -12,6 +13,7 @@ let initialState={
     ]
     ,newPostText: ''
     ,profile: null
+    ,status: ""
 };
 
 //Test commit integration 7
@@ -30,6 +32,8 @@ const profileReducer = (state = initialState, action) =>{
             return {...state, newPostText: action.postMessage}
         case SET_USER_PROFILE:
             return {...state, profile: action.profile}
+        case SET_STATUS:
+            return {...state, status: action.status}
         default:
             break;
     }
@@ -39,6 +43,7 @@ const profileReducer = (state = initialState, action) =>{
 export const addPostActionCreator = () => ({type: ADD_POST});
 export const onPostChangeActionCreator = (text) => ({type: UPDATE_NEW_POST_TEXT,postMessage: text });
 export const setUserProfileIOnSuccess = (profile)=>({type:SET_USER_PROFILE, profile});
+export const setStatus = (status)=>({type:SET_STATUS, status});
 
 
 export const setUserProfile =(userId) =>{
@@ -48,6 +53,26 @@ export const setUserProfile =(userId) =>{
             dispatch(setUserProfileIOnSuccess(response.data));
         }); 
     }    
+}
+
+export const getStatus = (userId) =>{
+    return(dispatch) =>{
+        profileApi.getStatus(userId).then(response=>
+            {
+                dispatch(setStatus(response.data));
+            })
+    }
+}
+
+export const updateStatus = (status) =>{
+    return(dispatch) =>{
+        profileApi.updateStatus(status).then(response=>
+            {
+                if(response.data.resultCode===0){
+                    dispatch(setStatus(status));
+                }
+            })
+    }
 }
 
 export default profileReducer;
