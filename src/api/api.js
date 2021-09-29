@@ -50,6 +50,14 @@ export const authApi = {
     getAuth ()
     {
         return instancse.get('auth/me');
+    },
+    login (email, password, rememberMe)
+    {
+        return instancse.post('auth/login',{email, password, rememberMe});
+    },
+    logoff ()
+    {
+        return instancse.delete('auth/login');
     }
 }
 

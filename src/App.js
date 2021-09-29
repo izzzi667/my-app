@@ -25,7 +25,7 @@ const App = (props) => {
         <Route path ='/users' render  ={()=> <UsersContainer /> } />
         <Route path ='/news' component={News} />        
         <Route exact path ='/settings' component={Settings} />        
-        <Route exact path ='/login' component={Login} />        
+        <Route path ='/login' render  ={()=> <Login /> } />        
       </div>        
       <Footer />
     </div>

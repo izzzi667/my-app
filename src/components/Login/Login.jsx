@@ -1,6 +1,30 @@
 import React from "react";
+import { compose } from "redux";
 import { Field, reduxForm } from "redux-form";
+import { userLogin } from "../../redux/authReducer";
+import { connect } from 'react-redux';
 
+
+
+class LoginContainer extends React.Component{
+
+    constructor(props){
+        super(props);                   //Если только эта операция - конструктор можно опустить
+    }
+
+    userLogin  = (formData)  => {
+                
+        console.log(formData.login);
+        console.log(formData.password);
+        this.props.userLogin(formData.login, formData.password, true );
+
+    }
+
+    render()
+    {
+        return (<Login userLogin={this.userLogin}/>);
+    }
+}
 
 
 const Login =  (props) =>
@@ -9,7 +33,7 @@ const Login =  (props) =>
         console.log(formData);
     }
 
-    return <div><h2>Login form</h2><LoginReduxForm onSubmit={onSubmit}/></div>
+    return <div><h2>Login form</h2><LoginReduxForm onSubmit={props.userLogin}/></div>
 }
 
 
@@ -27,4 +51,10 @@ const LoginForm = (props)=>
 const LoginReduxForm =  reduxForm({form: 'loginForm'})(LoginForm);
 
 
-export default Login;
+let mapStateToProps = (state) =>({
+    isAuth: state.auth.isAuth,
+    login: state.auth.login
+});
+
+export default connect(mapStateToProps,{userLogin})(LoginContainer);
+
