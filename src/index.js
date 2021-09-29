@@ -36,7 +36,7 @@ store.subscribe(()=>
 //С использованием react-redux ручная перерисовка дерева не нужна - компонент перерисовывает дерево сам
 ReactDOM.render(           
   <React.StrictMode>
-    <Provider store={store}>
+    <Provider store={store}>          
       <App />
     </Provider>
   </React.StrictMode>
@@ -44,7 +44,7 @@ ReactDOM.render(
   document.getElementById('root')
 );
 
-
+//Provider позволяет использовать store дальше вниз по дереву
 
 
 // If you want to start measuring performance in your app, pass a function
