@@ -29,6 +29,14 @@ class ProfileStatus extends React.Component {
         });
     }
 
+    componentDidUpdate(prevProps, prevState)        //Вызваетеся при любом изменении state и props
+    {
+        if(prevProps.status !== this.props.status)
+        {
+            this.setState({status: this.props.status});         //Если поменялся внешний статус, то поменяем и внутренний
+        }
+    }
+
     render(){
         
         return(
