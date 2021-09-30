@@ -21,9 +21,9 @@ let initialState={
 const profileReducer = (state = initialState, action) =>{
     switch (action.type) {
         case ADD_POST: {           
-                //Необходимо - react redux проверяет при перисовке, что меняется ссылка на объект, а не конекст
+                //Необходимо - react redux проверяет при перисовке, что меняется ссылка на объект, а не конекст                
             return {...state, 
-                    postsData: [...state.postsData,{id: 5, header: 'NewPost', text: state.newPostText, likeCounts:0 }],
+                    postsData: [...state.postsData,{id: 5, header: 'NewPost', text: action.newPostBody, likeCounts:0 }],
                     newPostText: ''
                 };
 
@@ -40,7 +40,7 @@ const profileReducer = (state = initialState, action) =>{
     return state;
 }
 
-export const addPostActionCreator = () => ({type: ADD_POST});
+export const addPostActionCreator = (newPostBody) => ({type: ADD_POST, newPostBody});
 export const onPostChangeActionCreator = (text) => ({type: UPDATE_NEW_POST_TEXT,postMessage: text });
 export const setUserProfileIOnSuccess = (profile)=>({type:SET_USER_PROFILE, profile});
 export const setStatus = (status)=>({type:SET_STATUS, status});

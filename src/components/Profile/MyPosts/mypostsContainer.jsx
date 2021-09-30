@@ -22,8 +22,8 @@ let mapDispathcToProps = (dispatch) =>
         updateNewPost: (text)=>{
             dispatch(onPostChangeActionCreator(text));
         },
-        createNewPost: ()=>{            
-            dispatch(addPostActionCreator());
+        createNewPost: (newPostBody)=>{            
+            dispatch(addPostActionCreator(newPostBody));
             dispatch(onPostChangeActionCreator(''));
         }
     }   
