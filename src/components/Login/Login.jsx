@@ -1,8 +1,12 @@
 import React from "react";
 import { compose } from "redux";
 import { Field, reduxForm } from "redux-form";
-import { userLogin } from "../../redux/authReducer";
+import { userLogin, setUserData} from "../../redux/authReducer";
 import { connect } from 'react-redux';
+import { Input } from '../Common/FormsCrontorls/FormsControls';
+import { maxLenghtCreator, requiredField } from '../../utils/validators/validators';
+
+const maxLen30 = maxLenghtCreator(30);
 
 
 
@@ -12,11 +16,9 @@ class LoginContainer extends React.Component{
         super(props);                   //Если только эта операция - конструктор можно опустить
     }
 
-    userLogin  = (formData)  => {
-                
-        console.log(formData.login);
-        console.log(formData.password);
-        this.props.userLogin(formData.login, formData.password, true );
+    userLogin  = (formData)  => {                
+        this.props.userLogin(formData.login, formData.password, true )
+        this.props.setUserData();
 
     }
 
@@ -41,12 +43,14 @@ const LoginForm = (props)=>
 {
 
     return  <form onSubmit={props.handleSubmit}>
-        <div><Field placeholder={"Login"} name ={"login"} component={"input"} /></div>
-        <div><Field placeholder={"Password"} name={"password"} component={"input"} /></div>
-        <div><Field component={"input"} name={"rememberMe"} type={"checkbox"} />Remember me</div>
+        <div><Field placeholder={"Login"} name ={"login"} component={Input} validate={[maxLen30, requiredField]}/></div>
+        <div><Field placeholder={"Password"} name={"password"} component={Input} validate={[maxLen30, requiredField]}/></div>
+        <div><Field component={Input} name={"rememberMe"} type={"checkbox"} />Remember me</div>
         <div><button>Login</button></div>
     </form>
 }
+
+
 
 const LoginReduxForm =  reduxForm({form: 'loginForm'})(LoginForm);
 
@@ -56,5 +60,5 @@ let mapStateToProps = (state) =>({
     login: state.auth.login
 });
 
-export default connect(mapStateToProps,{userLogin})(LoginContainer);
+export default connect(mapStateToProps,{userLogin,setUserData})(LoginContainer);
 
