@@ -51,7 +51,7 @@ export const authApi = {
     {
         return instancse.get('auth/me');
     },
-    login (email, password, rememberMe)
+    login (email, password, rememberMe=false)
     {
         return instancse.post('auth/login',{email, password, rememberMe});
     },

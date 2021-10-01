@@ -13,6 +13,7 @@ let initialState ={
 
 
 const authReducer = (state=initialState, action) =>{
+    debugger;
     switch (action.type) {        
         case SET_USER_DATA:
             return{...state, ...action.data, isAuth: true}    
@@ -26,7 +27,7 @@ const authReducer = (state=initialState, action) =>{
 }
 
 
-export const setUserDataSuccess = (userId, email, login) => ({type: SET_USER_DATA, data: {userId, email, login}})
+export const setUserDataSuccess = (userId, email, login, isAuth) => ({type: SET_USER_DATA, data: {userId, email, login, isAuth}})
 
 export const setUserData = () =>
 {
@@ -35,7 +36,7 @@ export const setUserData = () =>
         authApi.getAuth().then(response =>{            
             if(response.data.resultCode===0){
                 let {id, login, email} = response.data.data;
-                dispatch(setUserDataSuccess(id,login,email));
+                dispatch(setUserDataSuccess(id,login,email,true));
                 }
             }
         )
@@ -47,10 +48,21 @@ export const userLogin = (email, password, rememberMe) => {
     return (dispatch) =>
     {
         authApi.login(email, password, rememberMe).then(response=>{
-            if(response.data.resultCode===0){
-                let {id, login, email} = response.data.data;
-                dispatch(setUserDataSuccess(id,login,email));
+            if(response.data.resultCode===0){               
+                dispatch(setUserData());
             }            
+        })
+    }
+}
+
+export const userLogoff = () =>
+{
+    return(dispatch) =>
+    {
+        authApi.logoff().then(response=>{
+            if(response.data.resultCode===0){               
+                dispatch(setUserDataSuccess(null,null,null,false));
+            }  
         })
     }
 }

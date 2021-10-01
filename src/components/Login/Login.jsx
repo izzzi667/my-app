@@ -5,6 +5,7 @@ import { userLogin, setUserData} from "../../redux/authReducer";
 import { connect } from 'react-redux';
 import { Input } from '../Common/FormsCrontorls/FormsControls';
 import { maxLenghtCreator, requiredField } from '../../utils/validators/validators';
+import { Redirect } from "react-router";
 
 const maxLen30 = maxLenghtCreator(30);
 
@@ -17,13 +18,13 @@ class LoginContainer extends React.Component{
     }
 
     userLogin  = (formData)  => {                
-        this.props.userLogin(formData.login, formData.password, true )
-        this.props.setUserData();
-
+        this.props.userLogin(formData.login, formData.password, formData.rememberMe )
+         
     }
 
     render()
     {
+        debugger;        
         return (<Login userLogin={this.userLogin}/>);
     }
 }
@@ -31,9 +32,12 @@ class LoginContainer extends React.Component{
 
 const Login =  (props) =>
 {
-    const onSubmit =(formData) =>{
-        console.log(formData);
+        
+    if(props.isAuth)
+    {
+        return <Redirect to={"/profile"} />
     }
+
 
     return <div><h2>Login form</h2><LoginReduxForm onSubmit={props.userLogin}/></div>
 }
@@ -44,7 +48,7 @@ const LoginForm = (props)=>
 
     return  <form onSubmit={props.handleSubmit}>
         <div><Field placeholder={"Login"} name ={"login"} component={Input} validate={[maxLen30, requiredField]}/></div>
-        <div><Field placeholder={"Password"} name={"password"} component={Input} validate={[maxLen30, requiredField]}/></div>
+        <div><Field placeholder={"Password"} name={"password"} component={Input} validate={[maxLen30, requiredField]} type={"password"} /></div>
         <div><Field component={Input} name={"rememberMe"} type={"checkbox"} />Remember me</div>
         <div><button>Login</button></div>
     </form>
