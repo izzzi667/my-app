@@ -24,19 +24,18 @@ class LoginContainer extends React.Component{
 
     render()
     {
-        debugger;        
-        return (<Login userLogin={this.userLogin}/>);
+        if(this.props.isAuth)
+        {
+            return <Redirect to={"/profile"} />
+        }      
+        return (<Login userLogin={this.userLogin} />);
     }
 }
 
 
 const Login =  (props) =>
 {
-        
-    if(props.isAuth)
-    {
-        return <Redirect to={"/profile"} />
-    }
+
 
 
     return <div><h2>Login form</h2><LoginReduxForm onSubmit={props.userLogin}/></div>
@@ -61,7 +60,8 @@ const LoginReduxForm =  reduxForm({form: 'loginForm'})(LoginForm);
 
 let mapStateToProps = (state) =>({
     isAuth: state.auth.isAuth,
-    login: state.auth.login
+    login: state.auth.login,
+    state:state
 });
 
 export default connect(mapStateToProps,{userLogin,setUserData})(LoginContainer);

@@ -9,7 +9,7 @@ const Header = (props)  =>
         <header className={style.header}>
             <img src="https://via.placeholder.com/50" />
             <div className={style.loginBlock}>
-                {props.isAuth ? props.login: <NavLink to={'/login'}>Login</NavLink>}
+                {props.isAuth ? <div>Hello, {props.login} <button onClick={props.userLogoff}>Logout</button></div>: <NavLink to={'/login'}>Login</NavLink>}
             </div>
                 
                 
@@ -19,3 +19,4 @@ const Header = (props)  =>
 }
 
 export default Header;
+
