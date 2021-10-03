@@ -13,10 +13,11 @@ class ProfileContainer extends React.Component{
     
     componentDidMount()
     {        
+        debugger;
         let userId= this.props.match.params.userId;
         if(!userId) 
         {
-            userId=2;
+            userId=this.props.currentUserId;
         }
         this.props.setUserProfile(userId);
         setTimeout(()=>{},2000);
@@ -36,7 +37,9 @@ class ProfileContainer extends React.Component{
 
 let mapStateToProps = (state) =>({
     profile: state.profilePage.profile,
-    status: state.profilePage.status
+    status: state.profilePage.status,
+    currentUserId : state.auth.userId,
+    isAuth: state.auth.isAuth
 });
 
 /*let AuthRedirectComponent = withAuthRedirect(ProfileContainer); //HOC
