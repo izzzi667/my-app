@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import { Input } from '../Common/FormsCrontorls/FormsControls';
 import { maxLenghtCreator, requiredField } from '../../utils/validators/validators';
 import { Redirect } from "react-router";
+import style from "../Common/FormsCrontorls/FormsControls.module.css"
 
 const maxLen30 = maxLenghtCreator(30);
 
@@ -44,11 +45,13 @@ const Login =  (props) =>
 
 const LoginForm = (props)=>
 {
-
     return  <form onSubmit={props.handleSubmit}>
         <div><Field placeholder={"Login"} name ={"login"} component={Input} validate={[maxLen30, requiredField]}/></div>
         <div><Field placeholder={"Password"} name={"password"} component={Input} validate={[maxLen30, requiredField]} type={"password"} /></div>
         <div><Field component={Input} name={"rememberMe"} type={"checkbox"} />Remember me</div>
+        {
+        <div className={style.formSummaryError}>{props.error}</div>
+        }
         <div><button>Login</button></div>
     </form>
 }
