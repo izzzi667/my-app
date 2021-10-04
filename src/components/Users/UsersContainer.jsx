@@ -4,6 +4,7 @@ import { follow,  unFollow, setCurrentPage,  toggleFollowingInProgress, getUsers
 import Users from './Users';
 import Preloader from '../Common/Preloader';
 import { withAuthRedirect } from '../../hoc/withAuthRedirect';
+import { getCurrentPageNumber, getCurrentUsers, getfollowingInProgress, getisFethcing, getPageSize, getTotalUsersCount } from '../../redux/usersSelectors';
 
 
 //Классовая компонента - устарелка - не рекомендуется использовать
@@ -53,7 +54,21 @@ class UsersContainerComponent extends React.Component {
     }
 }
 
+//С использованием селекторов
+let mapStateToProps= (state) =>
+{
+    return  {
+        users: getCurrentUsers(state),
+        pageSize: getPageSize(state),
+        totalUsersCount: getTotalUsersCount(state),
+        currentPage: getCurrentPageNumber(state),
+        isFethcing: getisFethcing(state),
+        followingInProgress: getfollowingInProgress(state)
+    }
+}
 
+
+/*
 let mapStateToProps= (state) =>
 {
     return  {
@@ -64,7 +79,8 @@ let mapStateToProps= (state) =>
         isFethcing: state.users.isFethcing,
         followingInProgress: state.users.followingInProgress
     }
-}
+}*/
+
 /*
 let mapDispathcToProps = (dispatch) => 
 {
