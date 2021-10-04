@@ -13,11 +13,14 @@ class ProfileContainer extends React.Component{
     
     componentDidMount()
     {        
-        debugger;
         let userId= this.props.match.params.userId;
         if(!userId) 
         {
             userId=this.props.currentUserId;
+            if(!userId)
+            {
+                this.props.history.push('/login');
+            }
         }
         this.props.setUserProfile(userId);
         setTimeout(()=>{},2000);

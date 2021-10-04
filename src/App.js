@@ -9,32 +9,55 @@ import UsersContainer from './components/Users/UsersContainer';
 import ProfileContainer from './components/Profile/ProfileContainer';
 import HeaderContainer from './components/Header/HeaderContainer';
 import Login from './components/Login/Login';
+import React, { Component } from 'react';
+import { setUserData } from './redux/authReducer';
+import { connect } from 'react-redux';
+import { compose } from 'redux';
+import { withRouter } from "react-router-dom";
+import { initializeApp } from './redux/appReducer';
+import Preloader from './components/Common/Preloader';
+
 
 
 //Babel - транспилятор - транспилирует jsx в js
 
-const App = (props) => {    
-  return (        
-    <BrowserRouter>
-    <div className='app-wrapper'>
-      <HeaderContainer />
-      <Navbar />
-      <div className='app-wrapper-content'>
-        <Route path = '/profile/:userId' render = {()=> <ProfileContainer /> } />
-        <Route path = '/profile' render = {()=> <ProfileContainer /> } />
-        <Route path ='/dialogs' render = {()=> <DialogsContainer /> } />        
-        <Route path ='/users' render  ={()=> <UsersContainer /> } />
-        <Route path ='/news' component={News} />        
-        <Route exact path ='/settings' component={Settings} />        
-        <Route path ='/login' render  ={()=> <Login /> } />        
-      </div>        
-      <Footer />
-    </div>
-    </BrowserRouter>
-  );
+class App extends Component {    
+  componentDidMount()
+  {
+    this.props.initializeApp(); 
+  }
+  render() {
+    if(!this.props.isInitialized)
+    {
+      return <Preloader />
+    }
+    return (            
+
+      <BrowserRouter>
+      <div className='app-wrapper'>
+        <HeaderContainer />
+        <Navbar />
+        <div className='app-wrapper-content'>
+          <Route path = '/profile/:userId' render = {()=> <ProfileContainer /> } />
+          <Route path = '/profile' render = {()=> <ProfileContainer /> } />
+          <Route path ='/dialogs' render = {()=> <DialogsContainer /> } />        
+          <Route path ='/users' render  ={()=> <UsersContainer /> } />
+          <Route path ='/news' component={News} />        
+          <Route exact path ='/settings' component={Settings} />        
+          <Route path ='/login' render  ={()=> <Login /> } />        
+        </div>        
+        <Footer />
+      </div>
+      </BrowserRouter>
+      )
+  }
 }
 
 
+const mapStateToProps = (state) =>({
+  isInitialized: state.app.isInitialized
+});
 
 
-export default App;
+export default compose(
+  connect(mapStateToProps, {initializeApp}))(App);
