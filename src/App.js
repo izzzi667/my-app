@@ -16,6 +16,7 @@ import { compose } from 'redux';
 import { withRouter } from "react-router-dom";
 import { initializeApp } from './redux/appReducer';
 import Preloader from './components/Common/Preloader';
+import CoinsListContainer from './components/Crypto/CoinsListContainer';
 
 
 
@@ -43,8 +44,10 @@ class App extends Component {
           <Route path ='/dialogs' render = {()=> <DialogsContainer /> } />        
           <Route path ='/users' render  ={()=> <UsersContainer /> } />
           <Route path ='/news' component={News} />        
+          <Route path ='/coins' render = {()=> <CoinsListContainer />} />
           <Route exact path ='/settings' component={Settings} />        
-          <Route path ='/login' render  ={()=> <Login /> } />        
+          <Route path ='/login' render  ={()=> <Login /> } />
+                  
         </div>        
         <Footer />
       </div>

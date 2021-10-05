@@ -5,6 +5,7 @@ import usersReducer from "./usersReducer";
 import authReducer from "./authReducer";
 import appReducer from "./appReducer";
 import thunkMuddleware from "redux-thunk";
+import cryptoReducer from './cryptoReducer';
 import { reducer as formReducer } from 'redux-form';
 
 
@@ -14,7 +15,8 @@ let reducers=combineReducers({
     users: usersReducer,
     auth: authReducer,
     form: formReducer,
-    app: appReducer
+    app: appReducer,
+    crypto: cryptoReducer
 
 });
 
