@@ -26,8 +26,8 @@ export const getCoins = () =>
     return(dispatch)=>
     {
         cryptoApi.getCoinsList().then(
-            data=>{
-                dispatch(getAllCoins(data));
+            data=>{                
+                dispatch(getAllCoins(data.data));
             }
         );
     }

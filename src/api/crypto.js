@@ -1,7 +1,6 @@
 import axios from "axios";
 
 const instancse = axios.create({
-    withCredentials: true,    
     baseURL: 'https://api.coingecko.com/api/v3/'
 });
 
