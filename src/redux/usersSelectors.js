@@ -1,9 +1,18 @@
+import {createSelector} from "reselect";
+
 
 //Селектор - это функиця, принимающая state и возвращающая только необходимыен данные
-export const getCurrentUsers = (state) =>
+export const getCurrentUsersSelector = (state) =>
 {
     return state.users.users;
 }
+
+export const getCurrentUsersWithReselector = createSelector ( getCurrentUsersSelector, (users) => 
+{
+    //Фильтрация - только для демонстрации CreateSelector будет вызвать селектор, проверять, изменились ли
+    //значения и создавать новый объект только если данные изменились
+    return users.filter();
+})
 
 
 export const getPageSize = (state) =>

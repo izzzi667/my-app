@@ -4,7 +4,7 @@ import { follow,  unFollow, setCurrentPage,  toggleFollowingInProgress, getUsers
 import Users from './Users';
 import Preloader from '../Common/Preloader';
 import { withAuthRedirect } from '../../hoc/withAuthRedirect';
-import { getCurrentPageNumber, getCurrentUsers, getfollowingInProgress, getisFethcing, getPageSize, getTotalUsersCount } from '../../redux/usersSelectors';
+import { getCurrentPageNumber,  getCurrentUsersWithReselector, getfollowingInProgress, getisFethcing, getPageSize, getTotalUsersCount } from '../../redux/usersSelectors';
 
 
 //Классовая компонента - устарелка - не рекомендуется использовать
@@ -58,7 +58,7 @@ class UsersContainerComponent extends React.Component {
 let mapStateToProps= (state) =>
 {
     return  {
-        users: getCurrentUsers(state),
+        users: getCurrentUsersWithReselector(state),
         pageSize: getPageSize(state),
         totalUsersCount: getTotalUsersCount(state),
         currentPage: getCurrentPageNumber(state),
