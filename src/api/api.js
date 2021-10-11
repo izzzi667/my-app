@@ -36,8 +36,7 @@ export const profileApi ={
         return instancse.get(`profile/`+userId); 
     },
     getStatus (userId)
-    {
-        
+    {        
         return instancse.get('profile/status/'+userId);
     },
     updateStatus (status)

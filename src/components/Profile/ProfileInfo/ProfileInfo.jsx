@@ -1,6 +1,6 @@
 import Preloader from '../../Common/Preloader';
 import style from  './ProfileInfo.module.css';
-import ProfileStatus from './ProfileStatus';
+import ProfileStatusWithHooks from './ProfileStatusWithHooks';
 
  
 
@@ -17,7 +17,7 @@ const ProfileInfo = (props) => {
             <div className={style.descriptionBlock}>
                 <h3>{props.profile.fullName}</h3>
                 <img src={props.profile.photos.large}></img>
-                <ProfileStatus status={props.status} updateStatus={props.updateStatus}/>
+                <ProfileStatusWithHooks status={props.status} updateStatus={props.updateStatus}/>
                 <div>{props.profile.aboutMe}</div>
             </div>
 
