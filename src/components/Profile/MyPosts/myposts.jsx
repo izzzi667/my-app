@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PureComponent } from 'react';
 import { Field, reduxForm } from "redux-form";
 import { addPostActionCreator, onPostChangeActionCreator } from '../../../redux/profileReducer';
 import { requiredField , maxLenghtCreator } from '../../../utils/validators/validators';
@@ -9,24 +9,35 @@ import Post from './Post/Post';
 
 const maxLen10 = maxLenghtCreator(10);
 
-const MyPosts = (props) => {        
-    let postArray = props.posts.map(post => <Post header={post.header} text={post.text} likeCounts = {post.likeCounts} key={post.id}/>);
+class MyPosts extends PureComponent {     
+    
+    //Аналогично импорту PureComponent, для функциональных использовать React.Memo
+    
+    /*
+    shouldComponentUpdate(nextProps, nextState)
+    {
+        //Определяет, нужно ли перерисовывать комопненту
+        return nextProps!=this.props || nextState!=this.state;
+    }*/
+
+    render(){
+    let postArray = this.props.posts.map(post => <Post header={post.header} text={post.text} likeCounts = {post.likeCounts} key={post.id}/>);
 
     let newPostElement=React.createRef();       //Создаем ссылку на элемент
 
     let addPost = () =>
     {        
-        props.createNewPost();
+        this.props.createNewPost();
     }
 
     let onPostChange =() =>
     {
         let text =newPostElement.current.value;
-        props.updateNewPost(text);
+        this.props.updateNewPost(text);
     }
     let addNewPostMessages  =(values) =>
     {
-        props.createNewPost(values.newPostBody)
+        this.props.createNewPost(values.newPostBody)
     }
 
     return (
@@ -39,6 +50,7 @@ const MyPosts = (props) => {
                 {postArray}
             </div>
     );
+}
 }
 
 
